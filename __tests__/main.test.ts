@@ -19,3 +19,12 @@ test("run script", async () => {
     await rmRF(dir);
   }
 });
+
+test("throws if the command fails", async () => {
+  await expect(
+    runCommand({
+      shell: "bash",
+      run: "false",
+    }),
+  ).rejects.toThrow();
+});
