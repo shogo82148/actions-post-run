@@ -4,7 +4,7 @@ import { tmpdir } from "os";
 import { rmRF, which } from "@actions/io";
 import { exec } from "@actions/exec";
 import { debug } from "@actions/core";
-import { parse } from "shell-quote";
+import { parse, ParseEntry } from "shell-quote";
 
 interface Input {
   shell?: string;
@@ -83,6 +83,16 @@ async function getShell(shell?: string): Promise<Shell> {
     }
   }
 
+  // sh
+  if (shell === "sh") {
+    const sh = await which("sh", true);
+    return {
+      command: sh,
+      args: ["-e", "{0}"],
+      ext: "sh",
+    };
+  }
+
   // pwsh
   if (shell === "pwsh") {
     const pwsh = await which("pwsh", true);
@@ -123,12 +133,27 @@ async function getShell(shell?: string): Promise<Shell> {
   }
 
   // custom shell
-  const args = parse(shell);
+  const args = stringifyParseEntries(parse(shell));
   return {
-    command: args[0].toString(),
-    args: [],
+    command: args[0],
+    args: args.slice(1),
     ext: "",
   };
+}
+
+function stringifyParseEntries(entries: ParseEntry[]): string[] {
+  return entries.map((entry) => {
+    if (typeof entry === "string") {
+      return entry;
+    }
+    if ("op" in entry && entry.op === "glob") {
+      return entry.pattern;
+    }
+    if ("op" in entry) {
+      return entry.op;
+    }
+    return "";
+  });
 }
 
 function replacePlaceholder(args: string[], filename: string): string[] {

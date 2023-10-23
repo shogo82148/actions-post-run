@@ -4263,6 +4263,15 @@ async function getShell(shell) {
             };
         }
     }
+    // sh
+    if (shell === "sh") {
+        const sh = await (0, io_1.which)("sh", true);
+        return {
+            command: sh,
+            args: ["-e", "{0}"],
+            ext: "sh",
+        };
+    }
     // pwsh
     if (shell === "pwsh") {
         const pwsh = await (0, io_1.which)("pwsh", true);
@@ -4299,12 +4308,26 @@ async function getShell(shell) {
         };
     }
     // custom shell
-    const args = (0, shell_quote_1.parse)(shell);
+    const args = stringifyParseEntries((0, shell_quote_1.parse)(shell));
     return {
-        command: args[0].toString(),
-        args: [],
+        command: args[0],
+        args: args.slice(1),
         ext: "",
     };
+}
+function stringifyParseEntries(entries) {
+    return entries.map((entry) => {
+        if (typeof entry === "string") {
+            return entry;
+        }
+        if ("op" in entry && entry.op === "glob") {
+            return entry.pattern;
+        }
+        if ("op" in entry) {
+            return entry.op;
+        }
+        return "";
+    });
 }
 function replacePlaceholder(args, filename) {
     return args.map((arg) => arg.replace("{0}", filename));
