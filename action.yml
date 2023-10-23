@@ -1,11 +1,19 @@
 name: "Your name here"
 description: "Provide a description here"
-author: "Your name or organization here"
+author: "ICHINOSE Shogo"
 inputs:
-  milliseconds: # change this
-    required: true
-    description: "input description here"
-    default: "default value if applicable"
+  run:
+    required: false
+    description: "Runs command-line programs using the operating system's shell."
+    default: ""
+  shell:
+    required: false
+    description: "You can override the default shell settings in the runner's operating system using the shell keyword. You can use built-in shell keywords, or you can define a custom set of shell options. The shell command that is run internally executes a temporary file that contains the commands specified in the run keyword."
+    default: ""
+  working-directory:
+    required: false
+    description: "Sets the working directory for steps and the default location for actions that do not specify a value for working-directory."
+    default: ""
 runs:
   using: "node20"
   main: "dist/index.js"

@@ -18,7 +18,7 @@ export async function runCommand(input: Input): Promise<string> {
   try {
     const filePath = join(dir, "command.sh");
     await writeFile(filePath, input.run, "utf8");
-    await exec("bash", ["-ex", filePath], {
+    await exec("bash", ["-e", filePath], {
       cwd: input.workingDirectory,
     });
   } finally {
