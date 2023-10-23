@@ -4,7 +4,7 @@ import { tmpdir } from "os";
 import { rmRF, which } from "@actions/io";
 import { exec } from "@actions/exec";
 import { debug } from "@actions/core";
-import { parse } from "shell-quote";
+import { parse, quote } from "shell-quote";
 
 interface Input {
   shell?: string;
@@ -22,9 +22,10 @@ export async function runCommand(input: Input): Promise<string> {
     await writeFile(filePath, input.run, "utf8");
     debug(`Wrote script to ${filePath}`);
 
+    const commandLine = quote([shell.command]);
     const args = replacePlaceholder(shell.args, filePath);
-    debug(`Running command ${shell.command} ${args.join(" ")}`);
-    await exec(shell.command, args, {
+    debug(`Running command ${commandLine} ${args.join(" ")}`);
+    await exec(commandLine, args, {
       cwd: input.workingDirectory,
     });
   } finally {
