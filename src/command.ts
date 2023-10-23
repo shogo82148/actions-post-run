@@ -20,7 +20,11 @@ export async function runCommand(input: Input): Promise<string> {
     const shell = await getShell(input.shell);
     const filePath = join(dir, "run" + (shell.ext ? "." + shell.ext : ""));
     await writeFile(filePath, input.run, "utf8");
-    await exec(shell.command, replacePlaceholder(shell.args, filePath), {
+    debug(`Wrote script to ${filePath}`);
+
+    const args = replacePlaceholder(shell.args, filePath);
+    debug(`Running command ${shell.command} ${args.join(" ")}`);
+    await exec(shell.command, args, {
       cwd: input.workingDirectory,
     });
   } finally {
