@@ -4,7 +4,7 @@ import { runCommand } from "./command";
 async function run(): Promise<void> {
   try {
     const shell = core.getInput("shell");
-    const inputRun = core.getInput("run");
+    const inputRun = core.getInput("pre");
     const workingDirectory = core.getInput("working-directory");
     await runCommand({
       shell,
