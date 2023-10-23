@@ -4210,7 +4210,10 @@ async function runCommand(input) {
         const shell = await getShell(input.shell);
         const filePath = (0, path_1.join)(dir, "run" + (shell.ext ? "." + shell.ext : ""));
         await (0, promises_1.writeFile)(filePath, input.run, "utf8");
-        await (0, exec_1.exec)(shell.command, replacePlaceholder(shell.args, filePath), {
+        (0, core_1.debug)(`Wrote script to ${filePath}`);
+        const args = replacePlaceholder(shell.args, filePath);
+        (0, core_1.debug)(`Running command ${shell.command} ${args.join(" ")}`);
+        await (0, exec_1.exec)(shell.command, args, {
             cwd: input.workingDirectory,
         });
     }
