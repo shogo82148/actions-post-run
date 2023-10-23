@@ -1,5 +1,5 @@
-name: "Your name here"
-description: "Provide a description here"
+name: "Post Run Action"
+description: "A simple GitHub action that allows you to execute commands on place and in post-run, once a workflow job has ended."
 author: "ICHINOSE Shogo"
 inputs:
   run:
