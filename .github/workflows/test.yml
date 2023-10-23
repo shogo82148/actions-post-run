@@ -38,3 +38,9 @@ jobs:
             set -euxo pipefail
             echo "RUNNING"
             pwd
+          pre: |
+            set -euxo pipefail
+            echo "PRE"
+          post: |
+            set -euxo pipefail
+            echo "POST"

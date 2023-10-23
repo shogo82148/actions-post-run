@@ -12,7 +12,7 @@
     "format": "prettier --write \"**/*.ts\"",
     "format-check": "prettier --check \"**/*.ts\"",
     "lint": "eslint src/**/*.ts",
-    "package": "ncc build --source-map --license licenses.txt",
+    "package": "ncc build --source-map --license licenses.txt src/main.ts && ncc build --source-map --license licenses.txt -o dist/post src/post.ts && ncc build --source-map --license licenses.txt -o dist/pre src/pre.ts",
     "test": "jest",
     "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
   },

@@ -1,92 +1,6 @@
 require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 524:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.runCommand = void 0;
-const promises_1 = __nccwpck_require__(292);
-const path_1 = __nccwpck_require__(17);
-const os_1 = __nccwpck_require__(37);
-const io_1 = __nccwpck_require__(436);
-const exec_1 = __nccwpck_require__(514);
-const core_1 = __nccwpck_require__(186);
-async function runCommand(input) {
-    const dir = await (0, promises_1.mkdtemp)((0, path_1.join)((0, os_1.tmpdir)(), "actions-post-run-"));
-    (0, core_1.debug)(`Created temporary directory ${dir}`);
-    try {
-        const filePath = (0, path_1.join)(dir, "command.sh");
-        await (0, promises_1.writeFile)(filePath, input.run, "utf8");
-        await (0, exec_1.exec)("bash", ["-e", filePath], {
-            cwd: input.workingDirectory,
-        });
-    }
-    finally {
-        await (0, io_1.rmRF)(dir);
-        (0, core_1.debug)(`Removed temporary directory ${dir}`);
-    }
-    return "";
-}
-exports.runCommand = runCommand;
-
-
-/***/ }),
-
-/***/ 109:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const core = __importStar(__nccwpck_require__(186));
-const command_1 = __nccwpck_require__(524);
-async function run() {
-    try {
-        const shell = core.getInput("shell");
-        const inputRun = core.getInput("run");
-        const workingDirectory = core.getInput("working-directory");
-        await (0, command_1.runCommand)({
-            shell,
-            run: inputRun,
-            workingDirectory,
-        });
-    }
-    catch (error) {
-        if (error instanceof Error)
-            core.setFailed(error.message);
-    }
-}
-void run();
-
-
-/***/ }),
-
 /***/ 351:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -4005,6 +3919,92 @@ exports["default"] = _default;
 
 /***/ }),
 
+/***/ 121:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.runCommand = void 0;
+const promises_1 = __nccwpck_require__(292);
+const path_1 = __nccwpck_require__(17);
+const os_1 = __nccwpck_require__(37);
+const io_1 = __nccwpck_require__(436);
+const exec_1 = __nccwpck_require__(514);
+const core_1 = __nccwpck_require__(186);
+async function runCommand(input) {
+    const dir = await (0, promises_1.mkdtemp)((0, path_1.join)((0, os_1.tmpdir)(), "actions-post-run-"));
+    (0, core_1.debug)(`Created temporary directory ${dir}`);
+    try {
+        const filePath = (0, path_1.join)(dir, "command.sh");
+        await (0, promises_1.writeFile)(filePath, input.run, "utf8");
+        await (0, exec_1.exec)("bash", ["-e", filePath], {
+            cwd: input.workingDirectory,
+        });
+    }
+    finally {
+        await (0, io_1.rmRF)(dir);
+        (0, core_1.debug)(`Removed temporary directory ${dir}`);
+    }
+    return "";
+}
+exports.runCommand = runCommand;
+
+
+/***/ }),
+
+/***/ 399:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const core = __importStar(__nccwpck_require__(186));
+const command_1 = __nccwpck_require__(121);
+async function run() {
+    try {
+        const shell = core.getInput("shell");
+        const inputRun = core.getInput("run");
+        const workingDirectory = core.getInput("working-directory");
+        await (0, command_1.runCommand)({
+            shell,
+            run: inputRun,
+            workingDirectory,
+        });
+    }
+    catch (error) {
+        if (error instanceof Error)
+            core.setFailed(error.message);
+    }
+}
+void run();
+
+
+/***/ }),
+
 /***/ 491:
 /***/ ((module) => {
 
@@ -4167,7 +4167,7 @@ module.exports = require("util");
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __nccwpck_require__(109);
+/******/ 	var __webpack_exports__ = __nccwpck_require__(399);
 /******/ 	module.exports = __webpack_exports__;
 /******/ 	
 /******/ })()
