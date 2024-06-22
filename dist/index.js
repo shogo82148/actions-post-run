@@ -4195,7 +4195,7 @@ exports["default"] = _default;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.runCommand = void 0;
+exports.runCommand = runCommand;
 const promises_1 = __nccwpck_require__(3292);
 const path_1 = __nccwpck_require__(1017);
 const os_1 = __nccwpck_require__(2037);
@@ -4224,7 +4224,6 @@ async function runCommand(input) {
     }
     return "";
 }
-exports.runCommand = runCommand;
 async function getShell(shell) {
     if (!shell) {
         const bash = await (0, io_1.which)("bash", false);
