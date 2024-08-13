@@ -1,7 +1,10 @@
 name: reviewdog
 on: [pull_request]
-jobs:
+permissions:
+  contents: read
+  pull-requests: write
 
+jobs:
   actionlint:
     runs-on: ubuntu-latest
     steps:
@@ -22,4 +25,4 @@ jobs:
         with:
           reporter: github-pr-review
           level: warning
-          eslint_flags: "src/**/*.ts"
+          eslint_flags: "src/**/*.ts __tests__/**/*.ts"
