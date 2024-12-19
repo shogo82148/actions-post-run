@@ -3247,6 +3247,9 @@ module.exports = function parse(s, env, opts) {
 
 module.exports = function quote(xs) {
 	return xs.map(function (s) {
+		if (s === '') {
+			return '\'\'';
+		}
 		if (s && typeof s === 'object') {
 			return s.op.replace(/(.)/g, '\\$1');
 		}
