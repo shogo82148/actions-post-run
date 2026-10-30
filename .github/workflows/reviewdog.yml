@@ -8,20 +8,20 @@ jobs:
   actionlint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: reviewdog/action-actionlint@v1
+      - uses: actions/checkout@v5.1.0
+      - uses: reviewdog/action-actionlint@v1.81.1
 
   eslint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v5.1.0
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v6.5.0
         with:
           node-version-file: "package.json"
           cache: "npm"
       - run: npm ci
-      - uses: reviewdog/action-eslint@v1
+      - uses: reviewdog/action-eslint@v1.36.1
         with:
           reporter: github-pr-review
           level: warning
